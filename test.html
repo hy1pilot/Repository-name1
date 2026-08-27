@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div id="log"></div>
+<div id="line"><input id="cmd" autofocus></div>
+<script>
+const log = document.getElementById('log');
+const cmd = document.getElementById('cmd');
+function addMessage(message) {
+    const p = document.createElement('p');
+    log.appendChild(p);
+    setLastMessageTest(message);
+    cmd.value = '';
+    window.scrollTo(0, document.body.scrollHeight);
+}
+function setLastMessageTest(text) {
+  const pTags = log.querySelectorAll('p');
+  pTags[pTags.length - 1].textContent = text;
+}
+cmd.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    addMessage(cmd.value);
+  }
+});
+function readKeyboardEvent(event) {
+  const keyValue = event.key;
+  const keyPhysicalCode = event.code;  
+  console.log(`Key pressed: ${keyValue} (Code: ${keyPhysicalCode})`);
+    if (keyValue === 'Enter') {
+    console.log('The Enter key was pressed!');
+  }
+}
+document.addEventListener('keydown', readKeyboardEvent)
+</script>
+</body>
+</html>
