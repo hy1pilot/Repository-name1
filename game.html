@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<head>
+    <style>
+        body{
+            font-family: ui-monospace, monospace;
+            font-size: 50px;
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body>#
+    ##
+    ###
+</body>
+<script>
+    const newParagraph = document.createElement('p');
+    newParagraph.textContent = 'This is new text';
+    const height = 10;
+    const width = 10;
+    startsetting1 = [["上", null, "槍", "火", "將", "王", "火", "槍", null, "上"],
+    ["成", "馬", "砲", null, "火", "火", null, "砲", "馬", "成"],
+    ["成", "上", "兵", "兵", "兵", "兵", "兵", "兵", "上", "成"],
+    ["上", null, null, null, null, null, null, null, null, "上"]]
+    let player = {icon: "我", x:5, y:2};
+    let enemy = {icon: "敵", x:9, y:7};
+    let mobs = [player, enemy]
+    let nyupiece = {icon: startsetting1[0][0], x:0, y:height-1}
+    mobs.push(nyupiece)
+    nyupiece = {icon: startsetting1[0][2], x:2, y:height-1}
+    mobs.push(nyupiece)
+    nyupiece = {icon: startsetting1[0][3], x:3, y:height-1}
+    mobs.push(nyupiece)
+    nyupiece = {icon: startsetting1[0][4], x:4, y:height-1}
+    mobs.push(nyupiece)
+    nyupiece = {icon: startsetting1[0][5], x:5, y:height-1}
+    mobs.push(nyupiece)
+    nyupiece = {icon: startsetting1[0][6], x:6, y:height-1}
+    mobs.push(nyupiece)
+    nyupiece = {icon: startsetting1[0][7], x:7, y:height-1}
+    mobs.push(nyupiece)
+    nyupiece = {icon: startsetting1[0][9], x:9, y:height-1}
+    mobs.push(nyupiece)
+    nyupiece = {icon: startsetting1[1][0], x:0, y:height-2}
+    mobs.push(nyupiece)
+    nyupiece = {icon: startsetting1[1][1], x:1, y:height-2}
+    mobs.push(nyupiece)
+    nyupiece = {icon: startsetting1[1][2], x:2, y:height-2}
+    mobs.push(nyupiece)
+    nyupiece = {icon: startsetting1[1][4], x:4, y:height-2}
+    mobs.push(nyupiece)
+    nyupiece = {icon: startsetting1[1][5], x:5, y:height-2}
+    mobs.push(nyupiece)
+    nyupiece = {icon: startsetting1[1][7], x:7, y:height-2}
+    mobs.push(nyupiece)
+    nyupiece = {icon: startsetting1[1][8], x:8, y:height-2}
+    mobs.push(nyupiece)
+    nyupiece = {icon: startsetting1[1][9], x:9, y:height-2}
+    mobs.push(nyupiece)
+    function drawmap(){
+        let text = "";
+        for (let row = 0; row < height; row++){
+            for (let col = 0; col < width; col++){
+                let playertodraw = null;
+                for (let i = 0; i < mobs.length; i++){
+                    if (mobs [i].x == col && mobs [i].y == row){
+                        playertodraw = mobs [i];
+                    }
+                }
+                if (playertodraw!=null){
+                    text += playertodraw.icon;
+                }else{
+                    text += "ㆍ";
+                }
+            }
+            text += "\n";
+        }
+        text += `${player.x},${player.y}`;
+        newParagraph.textContent = text;
+    }
+    document.body.appendChild (newParagraph);
+    function readkey (event){
+        const key = event.key;
+        const code = event.code;
+        console.log (`key:${key} code:${code}`);
+        moveplayer (enemy, key);
+        drawmap ();
+    }
+    function moveplayer(player, key){
+        let old_x = player.x;
+        let old_y = player.y;
+        let upaction = () => {player.y -- ;}
+        let leftaction = () => {player.x -- ;}
+        let downaction = () => {player.y ++ ;}
+        let rightaction = () => {player.x ++ ;}
+        let actionmap = {};
+        let up = ["wWㅈㅉ", upaction]
+        for (let i = 0; i < up[0].length; i++){
+            actionmap[up[0][i]] = upaction;
+        }
+        // actionmap ['w'] = upaction;
+        // actionmap ['W'] = upaction;
+        // actionmap ['ㅈ'] = upaction;
+        // actionmap ['ㅉ'] = upaction;
+        actionmap ['s'] = downaction;
+        actionmap ['S'] = downaction;
+        actionmap ['ㄴ'] = downaction;
+        actionmap ['a'] = leftaction;
+        actionmap ['A'] = leftaction;
+        actionmap ['ㅁ'] = leftaction;
+        actionmap ['d'] = rightaction;
+        actionmap ['D'] = rightaction;
+        actionmap ['ㅇ'] = rightaction;
+        // switch (key){
+        //     case 'ㅈ': case 'W': case 'w': player.y -- ; break;
+        //     case 'ㅁ': case 'A': case 'a': player.x -- ; break;
+        //     case 'ㄴ': case 'S': case 's': player.y ++ ; break;
+        //     case 'ㅇ': case 'D': case 'd': player.x ++ ; break;
+        // }
+        if (actionmap [key]){
+            actionmap[key]();
+        }
+        if (player.y < 0 || player.x < 0 || player.y >= height || player.x >= width){
+            player.x = old_x;
+            player.y = old_y;
+        }
+    }
+    document.addEventListener ('keydown',readkey);
+    drawmap ();
+</script>
