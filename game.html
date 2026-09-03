@@ -53,11 +53,14 @@
         newParagraph.textContent = text;
     }
     document.body.appendChild (newParagraph);
+    var hutumuv = enemy
+    var muvplayer = () => {hutumuv = player}
+    var muvenemy = () => {hutumuv = enemy}
     function readkey (event){
         const key = event.key;
         const code = event.code;
         console.log (`key:${key} code:${code}`);
-        moveplayer (enemy, key);
+        moveplayer (hutumuv, key);
         drawmap ();
     }
     function moveplayer(player, key){
@@ -67,23 +70,28 @@
         let leftaction = () => {player.x -- ;}
         let downaction = () => {player.y ++ ;}
         let rightaction = () => {player.x ++ ;}
+        let piel = ["p", muvplayer]
+        let en = ["n", muvenemy]
         let actionmap = {};
         let up = ["wWㅈㅉص", upaction]
         let le = ["aAㅁش", leftaction]
         let rr = ["dDㅇي", rightaction]
         let dn = ["sSㄴس", downaction]
-        for (let i = 0; i < up[0].length; i++){
-            actionmap[up[0][i]] = upaction;
+        let mappingssssssssssssssssssssssssssssssssssssssssssssss = [up, le, rr, dn, piel, en]
+        for (let n = 0; n < mappingssssssssssssssssssssssssssssssssssssssssssssss.length; n++){
+            for (let i = 0; i < mappingssssssssssssssssssssssssssssssssssssssssssssss[n][0].length; i++){
+                actionmap[mappingssssssssssssssssssssssssssssssssssssssssssssss[n][0][i]] = mappingssssssssssssssssssssssssssssssssssssssssssssss[n][1];
+            }
         }
-        for (let i = 0; i < le[0].length; i++){
-            actionmap[le[0][i]] = leftaction;
-        }
-        for (let i = 0; i < rr[0].length; i++){
-            actionmap[rr[0][i]] = rightaction;
-        }
-        for (let i = 0; i < dn[0].length; i++){
-            actionmap[dn[0][i]] = downaction;
-        }
+                                                                                                                                // for (let i = 0; i < le[0].length; i++){
+                                                                                                                                //     actionmap[le[0][i]] = le[1];
+                                                                                                                                // }
+                                                                                                                                // for (let i = 0; i < rr[0].length; i++){
+                                                                                                                                //     actionmap[rr[0][i]] = rr[1];
+                                                                                                                                // }
+                                                                                                                                // for (let i = 0; i < dn[0].length; i++){
+                                                                                                                                //     actionmap[dn[0][i]] = dn[1];
+                                                                                                                                // }
         // actionmap ['w'] = upaction;
         // actionmap ['W'] = upaction;
         // actionmap ['ㅈ'] = upaction;
