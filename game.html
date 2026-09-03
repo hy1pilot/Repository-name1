@@ -24,38 +24,13 @@
     let player = {icon: "我", x:5, y:2};
     let enemy = {icon: "敵", x:9, y:7};
     let mobs = [player, enemy]
-    let nyupiece = {icon: startsetting1[0][0], x:0, y:height-1}
-    mobs.push(nyupiece)
-    nyupiece = {icon: startsetting1[0][2], x:2, y:height-1}
-    mobs.push(nyupiece)
-    nyupiece = {icon: startsetting1[0][3], x:3, y:height-1}
-    mobs.push(nyupiece)
-    nyupiece = {icon: startsetting1[0][4], x:4, y:height-1}
-    mobs.push(nyupiece)
-    nyupiece = {icon: startsetting1[0][5], x:5, y:height-1}
-    mobs.push(nyupiece)
-    nyupiece = {icon: startsetting1[0][6], x:6, y:height-1}
-    mobs.push(nyupiece)
-    nyupiece = {icon: startsetting1[0][7], x:7, y:height-1}
-    mobs.push(nyupiece)
-    nyupiece = {icon: startsetting1[0][9], x:9, y:height-1}
-    mobs.push(nyupiece)
-    nyupiece = {icon: startsetting1[1][0], x:0, y:height-2}
-    mobs.push(nyupiece)
-    nyupiece = {icon: startsetting1[1][1], x:1, y:height-2}
-    mobs.push(nyupiece)
-    nyupiece = {icon: startsetting1[1][2], x:2, y:height-2}
-    mobs.push(nyupiece)
-    nyupiece = {icon: startsetting1[1][4], x:4, y:height-2}
-    mobs.push(nyupiece)
-    nyupiece = {icon: startsetting1[1][5], x:5, y:height-2}
-    mobs.push(nyupiece)
-    nyupiece = {icon: startsetting1[1][7], x:7, y:height-2}
-    mobs.push(nyupiece)
-    nyupiece = {icon: startsetting1[1][8], x:8, y:height-2}
-    mobs.push(nyupiece)
-    nyupiece = {icon: startsetting1[1][9], x:9, y:height-2}
-    mobs.push(nyupiece)
+    let nyupiece;
+    for (let horsantl_list_of_caractor = 0; horsantl_list_of_caractor < 4; horsantl_list_of_caractor++){
+        for (let i = 0; i < 10; i++){
+            nyupiece = {icon: startsetting1[horsantl_list_of_caractor][i], x:i, y:height-(horsantl_list_of_caractor + 1)}
+            if (nyupiece.icon!=null)mobs.push(nyupiece)
+        }
+    }
     function drawmap(){
         let text = "";
         for (let row = 0; row < height; row++){
@@ -93,23 +68,35 @@
         let downaction = () => {player.y ++ ;}
         let rightaction = () => {player.x ++ ;}
         let actionmap = {};
-        let up = ["wWㅈㅉ", upaction]
+        let up = ["wWㅈㅉص", upaction]
+        let le = ["aAㅁش", leftaction]
+        let rr = ["dDㅇي", rightaction]
+        let dn = ["sSㄴس", downaction]
         for (let i = 0; i < up[0].length; i++){
             actionmap[up[0][i]] = upaction;
+        }
+        for (let i = 0; i < le[0].length; i++){
+            actionmap[le[0][i]] = leftaction;
+        }
+        for (let i = 0; i < rr[0].length; i++){
+            actionmap[rr[0][i]] = rightaction;
+        }
+        for (let i = 0; i < dn[0].length; i++){
+            actionmap[dn[0][i]] = downaction;
         }
         // actionmap ['w'] = upaction;
         // actionmap ['W'] = upaction;
         // actionmap ['ㅈ'] = upaction;
         // actionmap ['ㅉ'] = upaction;
-        actionmap ['s'] = downaction;
-        actionmap ['S'] = downaction;
-        actionmap ['ㄴ'] = downaction;
-        actionmap ['a'] = leftaction;
-        actionmap ['A'] = leftaction;
-        actionmap ['ㅁ'] = leftaction;
-        actionmap ['d'] = rightaction;
-        actionmap ['D'] = rightaction;
-        actionmap ['ㅇ'] = rightaction;
+                                // actionmap ['s'] = downaction;
+                                // actionmap ['S'] = downaction;
+                                // actionmap ['ㄴ'] = downaction;
+                                // actionmap ['a'] = leftaction;
+                                // actionmap ['A'] = leftaction;
+                                // actionmap ['ㅁ'] = leftaction;
+                                // actionmap ['d'] = rightaction;
+                                // actionmap ['D'] = rightaction;
+                                // actionmap ['ㅇ'] = rightaction;
         // switch (key){
         //     case 'ㅈ': case 'W': case 'w': player.y -- ; break;
         //     case 'ㅁ': case 'A': case 'a': player.x -- ; break;
