@@ -24,6 +24,8 @@
     let player = {icon: "我", x:5, y:2};
     let enemy = {icon: "敵", x:9, y:7};
     let mobs = [player, enemy]
+    let wichpis = 0;
+
     let nyupiece;
     for (let horsantl_list_of_caractor = 0; horsantl_list_of_caractor < 4; horsantl_list_of_caractor++){
         for (let i = 0; i < 10; i++){
@@ -56,6 +58,10 @@
     var hutumuv = enemy
     var muvplayer = () => {hutumuv = player}
     var muvenemy = () => {hutumuv = enemy}
+    var nekstpis = () => {
+        wichpis ++ ;
+        hutumuv = mobs[wichpis]
+    }
     function readkey (event){
         const key = event.key;
         const code = event.code;
@@ -77,7 +83,8 @@
         let le = ["aAㅁش", leftaction]
         let rr = ["dDㅇي", rightaction]
         let dn = ["sSㄴس", downaction]
-        let mappingssssssssssssssssssssssssssssssssssssssssssssss = [up, le, rr, dn, piel, en]
+        let nekst = ["=+", nekstpis]
+        let mappingssssssssssssssssssssssssssssssssssssssssssssss = [up, le, rr, dn, piel, en, nekst]
         for (let n = 0; n < mappingssssssssssssssssssssssssssssssssssssssssssssss.length; n++){
             for (let i = 0; i < mappingssssssssssssssssssssssssssssssssssssssssssssss[n][0].length; i++){
                 actionmap[mappingssssssssssssssssssssssssssssssssssssssssssssss[n][0][i]] = mappingssssssssssssssssssssssssssssssssssssssssssssss[n][1];
