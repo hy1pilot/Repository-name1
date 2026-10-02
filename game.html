@@ -31,7 +31,9 @@
     let enemy = {icon: "敵", x:9, y:7};
     let mobs = [player, enemy]
     let wichpis = 0;
-
+    function hylauoo (){
+        
+    }
     let nyupiece;
     for (let horsantl_list_of_caractor = 0; horsantl_list_of_caractor < 4; horsantl_list_of_caractor++){
         for (let i = 0; i < 10; i++){
@@ -39,28 +41,36 @@
             if (nyupiece.icon!=null)mobs.push(nyupiece)
         }
     }
+    let hailaitid = []
+    hailaitid.push ({x:4, y:1});
     function drawmap(){
         let text = "";
         for (let row = 0; row < height; row++){
             for (let col = 0; col < width; col++){
                 let playertodraw = null;
+                let coloutouse = jestkele;
+                let emtiskeeu = "ㆍ";
+                for (let i = 0; i < hailaitid.length; i++){
+                    if (hailaitid [i].x == col && hailaitid [i].y == row){
+                        coloutouse = hailaidinkele;
+                        emtiskeeu = "ㅁ";
+                    }
+                }
                 for (let i = 0; i < mobs.length; i++){
                     if (mobs [i].x == col && mobs [i].y == row){
                         playertodraw = mobs [i];
                     }
+                }                    //w                                                                                                                                                                                                                                                                                            //a
+                if (playertodraw == hutumuv){
+                    coloutouse = hutukele
                 }
+                text += "<font color = " + coloutouse + ">";
                 if (playertodraw != null){
-                    text += "<font color = " ;
-                    if (playertodraw != hutumuv){
-                        text += jestkele ;
-                    }else{
-                        text += hutukele ;
-                    }
-                    text +=  ">"
-                        +playertodraw.icon + "</font>";
+                    text += playertodraw.icon  ;
                 }else{
-                    text += "ㆍ";
+                    text += emtiskeeu;
                 }
+                text += "</font>";
             }
             text += "\n";
         }
@@ -75,6 +85,7 @@
     var hutumuv = enemy
     var hutukele = "#ff0000"
     var jestkele = "#000000"
+    var hailaidinkele = "#178c72" 
     var muvplayer = () => {hutumuv = player}
     var muvenemy = () => {hutumuv = enemy}
     var nekstpis = () => {
@@ -118,15 +129,15 @@
                 actionmap[mappingssssssssssssssssssssssssssssssssssssssssssssss[n][0][i]] = mappingssssssssssssssssssssssssssssssssssssssssssssss[n][1];
             }
         }
-                                                                                                                                // for (let i = 0; i < le[0].length; i++){
-                                                                                                                                //     actionmap[le[0][i]] = le[1];
-                                                                                                                                // }
-                                                                                                                                // for (let i = 0; i < rr[0].length; i++){
-                                                                                                                                //     actionmap[rr[0][i]] = rr[1];
-                                                                                                                                // }
-                                                                                                                                // for (let i = 0; i < dn[0].length; i++){
-                                                                                                                                //     actionmap[dn[0][i]] = dn[1];
-                                                                                                                                // }
+                                                                                                                                    // for (let i = 0; i < le[0].length; i++){
+                                                                                                                                    //     actionmap[le[0][i]] = le[1];
+                                                                                                                                    // }
+                                                                                                                                    // for (let i = 0; i < rr[0].length; i++){
+                                                                                                                                    //     actionmap[rr[0][i]] = rr[1];
+                                                                                                                                    // }
+                                                                                                                                    // for (let i = 0; i < dn[0].length; i++){
+                                                                                                                                    //     actionmap[dn[0][i]] = dn[1];
+                                                                                                                                    // }
         // actionmap ['w'] = upaction;
         // actionmap ['W'] = upaction;
         // actionmap ['ㅈ'] = upaction;
@@ -152,6 +163,17 @@
         if (player.y < 0 || player.x < 0 || player.y >= height || player.x >= width){
             player.x = old_x;
             player.y = old_y;
+        }
+        if (player.icon == "上"){
+            hailaitid = [];
+            hailaitid.push ({x:player.x, y:player.y - 1})
+            hailaitid.push ({x:player.x, y:player.y + 1})
+            hailaitid.push ({x:player.x - 1, y:player.y - 1})
+            hailaitid.push ({x:player.x - 1, y:player.y + 1})
+            hailaitid.push ({x:player.x + 1, y:player.y - 1})
+            hailaitid.push ({x:player.x + 1, y:player.y + 1})
+            hailaitid.push ({x:player.x + 1, y:player.y})
+            hailaitid.push ({x:player.x - 1, y:player.y})
         }
     }
     document.addEventListener ('keydown',readkey);
