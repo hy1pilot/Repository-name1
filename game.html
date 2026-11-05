@@ -57,6 +57,27 @@
         }
         return null;
     }
+    function keulikdskeeu(id, row, col){
+        console.log(id)
+        hutumuv = getpisaet(col, row);
+        drawmap()
+    }
+    function functionskeeuheoveo(id){
+        var spasebeotn = document.getElementById(id);
+        console.log(id+" "+spasebeotn)
+        spasebeotn.addEventListener("mouseenter", () => {
+            spasebeotn.style.backgroundColor = "#a1f9e4"
+            spasebeotn.style.color = "#ffffff"
+            // spasebeotn.style.boxShadow = "0 10px 20px rgba(0, 0, 0, 0.5)"
+            // spasebeotn.style.border = "10px outset #aaaaaa"
+        });
+        spasebeotn.addEventListener("mouseleave", () => {
+            spasebeotn.style.backgroundColor = ""
+            spasebeotn.style.color = ""
+            // spasebeotn.style.boxShadow = "0 10px 20px rgba(0, 0, 0, 1)"
+            // spasebeotn.style.border = "10px inset #000000"
+        });
+    }
     function drawmap(){
         let text = "";
         for (let row = 0; row < height; row++){
@@ -70,7 +91,7 @@
                 else{
                     coloutouse = playerkeles[playertodraw.orneor];
                 }
-                let emtiskeeu = "ㆍ";
+                let emtiskeeu = "□";
                 
                                                                                                         // for (let i = 0; i < mobs.length; i++){
                                                                                                         //     if (mobs [i].x == col && mobs [i].y == row){
@@ -83,19 +104,22 @@
                             coloutouse = saekele
                         }
                         else{coloutouse = hailaidinkele;}
-                        emtiskeeu = "ㅁ";
+                        emtiskeeu = "▩";
                     }
                 }
                                 if (playertodraw == hutumuv){
                     coloutouse = hutukele
                 }
+                let neim = "'c"+row+"."+col+"'";
+                text += "<span id="+neim+" onclick=\"keulikdskeeu("+neim+", "+row+", "+col+")\">";
                 text += "<font color = " + coloutouse + ">";
                 if (playertodraw != null){
                     text += playertodraw.icon  ;
                 }else{
                     text += emtiskeeu;
                 }
-                text += "</font>";
+                text += "</font></span>";
+                // text += "<script"+">functionskeeuheoveo("+neim+")</"+"script>";
             }
             text += "\n";
         }
@@ -105,6 +129,12 @@
         }
         // newParagraph.textContent = text;
         newParagraph.innerHTML = text;
+        for (let row = 0; row < height; row++){
+            for (let col = 0; col < width; col++){
+                let neim = "c"+row+"."+col+"";
+                functionskeeuheoveo(neim);
+            }
+        }
     }
     document.body.appendChild (newParagraph);
     var hutumuv = enemy
