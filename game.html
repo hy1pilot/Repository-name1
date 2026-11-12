@@ -27,9 +27,9 @@
     ["成", "馬", "砲", null, "火", "火", null, "砲", "馬", "成"],
     ["成", "上", "兵", "兵", "兵", "兵", "兵", "兵", "上", "成"],
     ["上", null, null, null, null, null, null, null, null, "上"]]
-    let player = {icon: "我", x:5, y:2, orneor:"aa"};
-    let enemy = {icon: "敵", x:9, y:7, orneor:"ee"};
-    let mobs = [player, enemy]
+    // let player = {icon: "我", x:5, y:2, orneor:"aa"};
+    // let enemy = {icon: "敵", x:9, y:7, orneor:"ee"};
+    let mobs = []
     let wichpis = 0;
     function hylauoo (){
         
@@ -60,6 +60,7 @@
     function keulikdskeeu(id, row, col){
         console.log(id)
         hutumuv = getpisaet(col, row);
+        shoomuv(hutumuv);
         drawmap()
     }
     function functionskeeuheoveo(id){
@@ -137,7 +138,7 @@
         }
     }
     document.body.appendChild (newParagraph);
-    var hutumuv = enemy
+    var hutumuv = null
     var hutukele = "#0000ff"
     var jestkele = "#000000"
     var enmytukele = "#CE0000"
@@ -224,6 +225,9 @@
             player.x = old_x;
             player.y = old_y;
         }
+        shoomuv(player);
+    }
+    function shoomuv(player){
         hailaitid = [];
         function aedmuv (x, y){
             hailaitid.push ({x:player.x + x, y:player.y + y})
@@ -231,7 +235,7 @@
         let x = player.x;
         let y = player.y;
         
-        function laigen (xmuve, ymuve){
+        function laigen (xmuve, ymuve, benine){
             for (let i = 1; i < 50; i ++){
                 let spacepis = getpisaet (x + xmuve * i, y + ymuve * i);
 
@@ -239,10 +243,29 @@
                     aedmuv (xmuve * i, ymuve * i);
                 }
                 else{
-                    if (spacepis.orneor != player.orneor){
+                    if (!benine && spacepis.orneor != player.orneor){
                         aedmuv (xmuve * i, ymuve * i);
                     }
                     break
+                }
+            }
+        }
+        function vaigen (xmuve, ymuve){
+            let haumenijeomps = 0
+            for (let i = 1; i < 50; i ++){
+                let spacepis = getpisaet (x + xmuve * i, y + ymuve * i);
+
+                if (spacepis == null){
+
+                    if (haumenijeomps == 0){
+                        aedmuv (xmuve * i, ymuve * i);
+                    }
+                }
+                else{
+                    if (haumenijeomps == 1 && spacepis.orneor != player.orneor){
+                        aedmuv (xmuve * i, ymuve * i);
+                    }
+                    haumenijeomps ++;
                 }
             }
         }
@@ -270,14 +293,6 @@
             aaigen(1, 1);
             aaigen(1, 0);
             aaigen(-1, 0);
-            // aedmuv(0, -1);          //hailaitid.push ({x:player.x, y:player.y - 1})
-            // aedmuv(0, 1);                // hailaitid.push ({x:player.x, y:player.y + 1})
-            // aedmuv(-1, -1);                // hailaitid.push ({x:player.x - 1, y:player.y - 1})
-            // aedmuv(-1, 1);                // hailaitid.push ({x:player.x - 1, y:player.y + 1})
-            // aedmuv(1, -1);                // hailaitid.push ({x:player.x + 1, y:player.y - 1})
-            // aedmuv(1, 1);                // hailaitid.push ({x:player.x + 1, y:player.y + 1})
-            // aedmuv(1, 0);                // hailaitid.push ({x:player.x + 1, y:player.y})
-            // aedmuv(-1, 0);                // hailaitid.push ({x:player.x - 1, y:player.y})
         }
         if (player.icon == "王"){
             aaigen(0, -1);
@@ -288,27 +303,6 @@
             aaigen(1, 1);
             aaigen(1, 0);
             aaigen(-1, 0);
-            // let muvS = [0, -1, 0, 1, -1, -1, -1, 1, 1, -1, 1, 1, 1, 0, -1, 0];
-            // for (let i = 0; i < muvS.length; i += 2){
-            //     aedmuv(muvS[i], muvS[i + 1]);
-            // }
-            // for (let rou = -1; rou <= 1; rou ++){
-            //     for (let keol = -1; keol <= 1; keol ++){
-            //         // // if (rou != 0|| keol != 0){
-            //         // if (Math.abs(rou) == 3|| Math.abs(keol) == 3){
-            //         if (rou != 0|| keol != 0){
-            //             aedmuv (keol, rou);
-            //         }
-            //     }
-            // }
-            // hailaitid.push ({x:player.x, y:player.y - 1})
-            // hailaitid.push ({x:player.x, y:player.y + 1})
-            // hailaitid.push ({x:player.x - 1, y:player.y - 1})
-            // hailaitid.push ({x:player.x - 1, y:player.y + 1})
-            // hailaitid.push ({x:player.x + 1, y:player.y - 1})
-            // hailaitid.push ({x:player.x + 1, y:player.y + 1})
-            // hailaitid.push ({x:player.x + 1, y:player.y})
-            // hailaitid.push ({x:player.x - 1, y:player.y})
         }
         if (player.icon == "馬"){
             aaigen(2, -1);
@@ -319,18 +313,6 @@
             aaigen(1, 2);
             aaigen(1, -2);
             aaigen(-1, 2);
-            // let movS = [2, -1, 2, 1, -2, -1, -2, 1, -1, -2, 1, 2, 1, -2, -1, 2]
-            // for (let i = 0; i < movS.length; i += 2){
-            //     aedmuv (movS[i], movS[i + 1]);
-            // }
-            // hailaitid.push ({x:player.x + 2, y:player.y - 1})
-            // hailaitid.push ({x:player.x + 2, y:player.y + 1})
-            // hailaitid.push ({x:player.x - 2, y:player.y - 1})
-            // hailaitid.push ({x:player.x - 2, y:player.y + 1})
-            // hailaitid.push ({x:player.x - 1, y:player.y - 2})
-            // hailaitid.push ({x:player.x + 1, y:player.y + 2})
-            // hailaitid.push ({x:player.x + 1, y:player.y - 2})
-            // hailaitid.push ({x:player.x - 1, y:player.y + 2})
         }
         if (player.icon == "兵"){
             if (player.orneor == "aa"){
@@ -343,12 +325,6 @@
                 aaigen(-1, 0);
                 aaigen(0, 1);
             }
-            // aedmuv (1, 0)
-            // aedmuv (-1, 0)
-            // aedmuv (0, -1)
-            // hailaitid.push ({x:player.x + 1, y:player.y})
-            // hailaitid.push ({x:player.x - 1, y:player.y})
-            // hailaitid.push ({x:player.x, y:player.y - 1})
         }
         if (player.icon == "火"){
             aaigen(-1, -1);
@@ -359,14 +335,6 @@
             aaigen(-2, 2);
             aaigen(2, -2);
             aaigen(2, 2);
-        //     for (let rou = -2; rou <= 2; rou ++){
-        //         for (let keol = -2; keol <= 2; keol ++){
-        //             if (rou == keol|| rou == -keol){
-        //                 aedmuv (keol, rou);
-        //             }
-        //         }
-        //     }
-        // }
         }
         
         if (player.icon == "成"){
@@ -375,38 +343,12 @@
             laigen (0, 1);
             laigen (1, 0);
             laigen (-1, 0);
-            
-            
-            // for (let rou = -50; rou <= 50; rou ++){
-            //     for (let keol = -50; keol <= 50; keol ++){
-            //         if (rou == 0|| keol == 0){
-            //             aedmuv (keol, rou);
-            //         }
-            //     }
-            // }
-            // for (let i = 1; i < 50; i ++){
-            //     let spacepis = getpisaet (x, y - i);
-
-            //     if (spacepis == null){
-            //         aedmuv (0, -i);
-            //     }
-            //     else{
-            //         break
-            //     }
-            // }
         }
         if (player.icon == "槍"){
             laigen(1, -1);
             laigen(1, 1);
             laigen(-1, 1);
             laigen(-1, -1);
-            // for (let rou = -50; rou <= 50; rou ++){
-            //     for (let keol = -50; keol <= 50; keol ++){
-            //         if (rou == keol|| rou == -keol){
-            //             aedmuv (keol, rou);
-            //         }
-            //     }
-            // }
         }
         if (player.icon == "將"){
             laigen (0, -1);
@@ -417,20 +359,13 @@
             laigen(1, 1);
             laigen(-1, 1);
             laigen(-1, -1);
-            // for (let rou = -50; rou <= 50; rou ++){
-            //     for (let keol = -50; keol <= 50; keol ++){
-            //         if (rou == 0|| keol == 0){
-            //             aedmuv (keol, rou);
-            //         }
-            //     }
-            // }
-            // for (let rou = -50; rou <= 50; rou ++){
-            //     for (let keol = -50; keol <= 50; keol ++){
-            //         if (rou == keol|| rou == -keol){
-            //             aedmuv (keol, rou);
-            //         }
-            //     }
-            // }
+        }
+        if (player.icon == "砲"){
+            
+            vaigen (0, -1);
+            vaigen (0, 1);
+            vaigen (1, 0);
+            vaigen (-1, 0);
         }
     }
     document.addEventListener ('keydown',readkey);
