@@ -141,7 +141,7 @@
     var hutukele = "#0000ff"
     var jestkele = "#000000"
     var enmytukele = "#CE0000"
-    var saekele = "#8C8C8C"
+    var saekele = "#178c72"
     var hailaidinkele = "#178c72"
     var playerkeles = {
         "aa":jestkele, "ee":enmytukele
@@ -333,9 +333,16 @@
             // hailaitid.push ({x:player.x - 1, y:player.y + 2})
         }
         if (player.icon == "兵"){
-            aaigen(1, 0);
-            aaigen(-1, 0);
-            aaigen(0, -1);
+            if (player.orneor == "aa"){
+                aaigen(1, 0);
+                aaigen(-1, 0);
+                aaigen(0, -1);
+            }
+            else if (player.orneor == "ee"){
+                aaigen(1, 0);
+                aaigen(-1, 0);
+                aaigen(0, 1);
+            }
             // aedmuv (1, 0)
             // aedmuv (-1, 0)
             // aedmuv (0, -1)
